@@ -1,3 +1,4 @@
+require "pry"
 # Write your code below game_hash
 def game_hash
   {
@@ -127,3 +128,95 @@ def game_hash
 end
 
 # Write code here
+
+def num_points_scored(player_name)
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :players
+        data.each do |data_item|
+            return data_item[:points] if data_item[:player_name] == player_name
+        end
+      end
+    end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :players
+        data.each do |data_item|
+            return data_item[:shoe] if data_item[:player_name] == player_name
+        end
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |location, team_data|
+    if team_data.values.first(2).flatten.include? team_name
+      return team_data[:colors]
+    end
+  end
+end
+
+def team_names
+  array = []
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :team_name
+          array.push(data)
+      end
+    end
+  end
+  array
+end
+
+def player_numbers(team_name)
+  array = []
+  game_hash.each do |location, team_data|
+    if team_data.values.first(2).flatten.include? team_name
+      team_data[:players].each do |player|
+      array.push(player[:number])
+      end
+    end
+  end
+  array
+end
+
+def player_stats(player_name)
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :players
+        data.each do |data_item|
+            return data_item if data_item[:player_name] == player_name
+        end
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  max = 0
+  rebounds = 0
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :players
+        data.each do |data_item|
+          if data_item[:shoe] > max
+            max = data_item[:shoe]
+            rebounds = data_item[:rebounds]
+          end
+        end
+      end
+    end
+  end
+  rebounds
+end
+
+
+
+
+
+
