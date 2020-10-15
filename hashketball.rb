@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -126,4 +127,138 @@ def game_hash
   }
 end
 
-# Write code here
+
+def num_points_scored(player)
+  basketball = game_hash
+  final_score_hash = {}
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if team_detail == :players
+        detail.each do |key|
+          key.each do |stats, value|
+            if value == player
+              final_score_hash = key
+            end
+          end
+        end
+      end
+    end
+  end
+  final_score_hash[:points]
+end
+
+
+def shoe_size(player)
+  basketball = game_hash
+  shoe_size_hash = {}
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if team_detail == :players
+        detail.each do |key|
+          key.each do |stats, value|
+            if value == player
+              shoe_size_hash = key
+            end
+          end
+        end
+      end
+    end
+  end
+  shoe_size_hash[:shoe]
+end
+
+def team_colors(team)
+  basketball = game_hash
+  team_color_array = []
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if detail == team
+          team_info.each do |key, value|
+            if key == :colors
+              team_color_array = value
+            end
+          end
+        end
+      end
+    end
+    team_color_array
+end
+
+def team_names
+  basketball = game_hash
+  team_names_array = []
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if team_detail == :team_name
+      team_names_array << detail
+    end
+  end
+end
+team_names_array
+end
+
+
+def player_numbers(team)
+  basketball = game_hash
+  player_numbers_array = []
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if detail == team
+        team_info.each do |team_detail2, detail2|
+      if team_detail2 == :players
+        detail2.each do |key|
+          key.each do |stats, value|
+            if stats == :number
+              player_numbers_array << value
+            end
+          end
+        end
+      end
+    end
+  end
+end
+end
+player_numbers_array
+end
+
+def player_stats(player)
+  basketball = game_hash
+  player_stats_hash = {}
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if team_detail == :players
+        detail.each do |key|
+          key.each do |stats, value|
+            if value == player
+              player_stats_hash = key
+            end
+          end
+        end
+      end
+    end
+  end
+  player_stats_hash
+end
+
+def big_shoe_rebounds
+  basketball = game_hash
+  big_shoe_hash = {}
+  size = 0
+  basketball.each do |team_origin, team_info|
+    team_info.each do |team_detail, detail|
+      if team_detail == :players
+        detail.each do |key|
+          key.each do |stats, value|
+            if stats == :shoe
+              if value > size
+                size = value
+                big_shoe_hash = key
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+big_shoe_hash[:rebounds]
+end
