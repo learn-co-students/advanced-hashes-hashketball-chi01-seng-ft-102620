@@ -1,4 +1,5 @@
 # Write your code below game_hash
+
 def game_hash
   {
     home: {
@@ -126,4 +127,85 @@ def game_hash
   }
 end
 
+
+require 'pry'
 # Write code here
+def num_points_scored(name)
+  players = game_hash[:home][:players] + game_hash[:away][:players]
+  players.each do |stats|
+    if stats[:player_name] == name
+      return stats[:points]
+    end
+  end
+end
+
+
+def shoe_size(name)
+  players = game_hash[:home][:players] + game_hash[:away][:players]
+  players.each do |stats|
+    if stats[:player_name] == name
+      return stats[:shoe]
+    end
+  end
+end
+
+def team_colors(name_of_team)
+  home_team = game_hash[:home][:team_name]
+  away_team = game_hash[:away][:team_name]
+  if home_team == name_of_team
+    return game_hash[:home][:colors]
+  elsif away_team == name_of_team
+    return game_hash[:away][:colors]
+  end
+end
+
+def team_names
+  teams = []
+  teams.push(game_hash[:home][:team_name], game_hash[:away][:team_name])
+  return teams
+end
+
+def player_numbers(name_of_bball_teams)
+  home_team = game_hash[:home][:team_name]
+  away_team = game_hash[:away][:team_name]
+  home_numbers = []
+  away_numbers = []
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  if name_of_bball_teams == home_team
+    home_players.each do |player_stats|
+      home_numbers << player_stats[:number]
+    end
+    home_numbers
+  elsif name_of_bball_teams == away_team
+    away_players.each do |player_stats|
+      away_numbers << player_stats[:number]
+    end
+    away_numbers
+  end
+end
+
+def player_stats(name)
+  players = game_hash[:home][:players] + game_hash[:away][:players]
+  players.each do |stats|
+    if stats[:player_name] == name
+      return stats
+    end
+  end
+end
+
+def big_shoe_rebounds
+  shoe_sizes = []
+  players = game_hash[:home][:players] + game_hash[:away][:players]
+  players.each do |stats|
+    shoe_sizes << stats[:shoe]
+  end
+  shoe_sizes.uniq!
+  shoe_sizes.sort!
+  biggest_shoe_size = shoe_sizes.last
+  players.each do |stats|
+    if stats[:shoe] == biggest_shoe_size
+      return stats[:rebounds]
+    end
+  end
+end
