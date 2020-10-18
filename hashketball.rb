@@ -1,4 +1,6 @@
-# Write your code below game_hash
+require 'pry'
+require './hashketball.rb'
+
 def game_hash
   {
     home: {
@@ -126,4 +128,110 @@ def game_hash
   }
 end
 
-# Write code here
+#--------------------------------------CODE-BELOW--------------------------------------
+def num_points_scored(player)
+  
+  game_hash.each do |key_home, value|
+    value[:players].each do |player_element|
+
+      if player_element[:player_name] == player
+        return player_element[:points]
+      end
+    end
+  end
+end
+
+
+def shoe_size(player)
+  game_hash.each do |key_home, value|
+    value[:players].each do |player_element|
+
+      if player_element[:player_name] == player
+        return player_element[:shoe]
+      end
+    end
+  end
+end
+
+
+def team_colors(team_name)
+    game_hash.each do |key_home, value|
+
+      if value[:team_name] == team_name
+        return value[:colors]
+      end
+  end
+end
+
+
+def team_names
+  team_n_array = []
+  
+  game_hash.each do |key_home, value|
+    value.find do
+      
+      if value[:team_name]
+        team_n_array << value[:team_name]
+      end
+    end
+  end
+    team_n_array
+end
+
+
+def player_numbers(team_name)
+    jersey_n_array = []
+  
+  game_hash.each do |key_home, value|
+    value.find do
+      
+      if value[:team_name] == team_name
+        player = value[:players]
+        player.each do |element|
+          jersey_n_array << element[:number]
+        end
+      end
+    end
+  end
+    jersey_n_array
+end
+
+
+def player_stats(name)
+      player_stats = {}
+  
+  game_hash.each do |key_home, value|
+    value.find do
+      value[:players].each do |element|
+          
+          if element[:player_name] == name
+           player_stats = element
+       end
+      end
+    end
+  end
+  player_stats
+end
+
+
+def big_shoe_rebounds
+  shoe_rebounds = []
+  game_hash.each do |key_home, value|
+    value.find do
+      value[:players].each do |element|
+          
+         element.find do |shoe|
+           shoe_rebounds<<{element[:shoe] => element[:rebounds]}
+          end
+      
+        end
+      end
+    end
+  big_shoe = shoe_rebounds.max_by(&:first)
+  big_shoe.each_value do |rebound|
+    return rebound
+  end
+end
+
+
+
