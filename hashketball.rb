@@ -1,4 +1,4 @@
-# Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -126,4 +126,92 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  game_hash.each do |team,info|
+        info[:players].each do |n| #Access the elements in the players array(which are also hashes). Iterate over each element
+      if n[:player_name]==(player_name)
+        return n[:points]
+    end
+   end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |team,info|
+      info[:players].each do |n| #Access the elements in the players array(which are also hashes). Iterate over each element
+      if n[:player_name]==(player_name)
+        return n[:shoe]
+    end
+   end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |team,info|
+    if info[:team_name]==team_name
+      return info[:colors]
+    end
+  end
+end
+
+def team_names
+  tnames=[] #Alter original array
+  game_hash.map do |team,info|
+        info[:team_name]
+        tnames.push(info[:team_name])
+  end
+ return tnames
+end
+
+def player_numbers(team_name)
+  pnumbers=[]
+    game_hash.map do |team,info|
+      if info[:team_name]==team_name
+         info[:players].map do |n|
+       pnumbers.push(n[:number])
+    end
+   end
+  end
+ pnumbers
+ end
+
+ def player_stats(player_name)
+   pstats={}
+  game_hash.map do |team, info|
+    info[:players].map do |n|
+      if n[:player_name] == player_name
+         pstats=n
+       end
+     end
+    end
+    pstats
+  end
+
+  def big_shoe_rebounds
+    shoes=0
+    rebounds=0
+    game_hash.map do |team, info|
+    info[:players].map do |n|
+    if n[:shoe]>shoes
+        shoes=n[:shoe]
+         rebounds=n[:rebounds]
+   end
+  end
+ end
+rebounds
+end
+
+def most_points_scored
+  points=0
+  game_hash.map do |team, info|
+  info[:players].map do |n|
+  if n[:points]>points
+      points=n[:points]
+   end
+  end
+ end
+points
+end
+
+#for winning team sum up points for both and compare
+#longest name use .count or split and count
